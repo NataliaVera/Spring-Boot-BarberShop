@@ -55,6 +55,14 @@ public class AppointmentController {
         appointmentService.save(appointment);
 
         return ResponseEntity.ok(appointmentService.save(appointment));
+    }
 
+    @DeleteMapping("/appointments/delete")
+    public ResponseEntity<Appointment> deleteById(@PathVariable Long id){
+        boolean result = appointmentService.deleteById(id);
+        if(result)
+            return ResponseEntity.noContent().build();
+        else
+            return ResponseEntity.badRequest().build();
     }
 }
