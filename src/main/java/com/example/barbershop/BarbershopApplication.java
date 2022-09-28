@@ -1,12 +1,12 @@
 package com.example.barbershop;
 
-import entities.Appoinment;
-import entities.Customer;
+import com.example.barbershop.entities.Appointment;
+import com.example.barbershop.entities.Customer;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.ApplicationContext;
-import repositories.AppoinmentRepository;
-import repositories.CustomerRepository;
+import com.example.barbershop.repositories.AppointmentRepository;
+import com.example.barbershop.repositories.CustomerRepository;
 
 import java.time.LocalDate;
 import java.time.LocalDateTime;
@@ -19,16 +19,16 @@ public class BarbershopApplication {
 
 		ApplicationContext context = SpringApplication.run(BarbershopApplication.class, args);
 
-		AppoinmentRepository appointmentRepository = context.getBean(AppoinmentRepository.class);
+		AppointmentRepository appointmentRepository = context.getBean(AppointmentRepository.class);
 
-		Appoinment date1 = new Appoinment(null, LocalDateTime.now(), 30, "");
+		Appointment date1 = new Appointment(null, LocalDateTime.now(), 30, "");
 
 		appointmentRepository.save(date1);
 
 		CustomerRepository customerRepository = context.getBean(CustomerRepository.class);
 		Customer customer = new Customer(null, "Customer 1", "last name1", "example@email.com", LocalDate.of(1990, 1, 3));
 
-		customer.getAppointmentList().add(date1);//
+		customer.getAppointmentList().add(date1);
 		customerRepository.save(customer);
 
 		//Asociacion Appoinmment - customer
@@ -36,12 +36,12 @@ public class BarbershopApplication {
 		appointmentRepository.save(date1);
 
 
-		Optional<Customer> customerOptional = customerRepository.findById(1L);
+		/*Optional<Customer> customerOptional = customerRepository.findById(1L);
 		Customer customer1 = null;
 		if(customerOptional.isPresent()){
 			customer1 = customerOptional.get();
 			System.out.println(customer1.getAppointmentList());
-		}
+		}*/
 	}
 
 }

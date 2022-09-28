@@ -1,10 +1,11 @@
-package entities;
+package com.example.barbershop.entities;
 
 import javax.persistence.*;
+import java.io.Serializable;
 
 @Entity
 @Table(name = "hair_assistances")
-public class HairAssistance {
+public class HairAssistance implements Serializable {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)

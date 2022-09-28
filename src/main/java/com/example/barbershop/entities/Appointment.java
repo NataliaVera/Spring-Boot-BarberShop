@@ -1,13 +1,15 @@
-package entities;
+package com.example.barbershop.entities;
+
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
 import javax.persistence.*;
 import java.io.Serializable;
 import java.time.LocalDateTime;
 
 @Entity
-@Table(name= "appoinments")
-public class Appoinment implements Serializable {
-
+@Table(name= "appointments")
+public class Appointment implements Serializable {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
@@ -20,16 +22,26 @@ public class Appoinment implements Serializable {
 
     //Relaciones: OneToOne, OneToMany, ManyToOne, ManyToMany
         //Cliente
-    @ManyToOne()
+    @JsonIgnore// ignora todos por completp
+    @ManyToOne
+    @JoinColumn(foreignKey = @ForeignKey(name = "fk_appointment_customer"))
     private Customer customer;
         //Servicio
+    @JsonIgnoreProperties(value = {"customer_id"}) //ignora atributos especificos
+    @ManyToOne
+    @JoinColumn(name = "service_id", foreignKey = @ForeignKey(name= "fk_appointment_hair_assistence"))//Nombre de la nueva columna
+    private HairAssistance hairAssistance;
+
+    @ManyToOne
+    @JoinColumn(name = "employee_id", foreignKey = @ForeignKey(name = "fk_appointment_employee"))
+    private Employee employee;
 
     //Contructores
 
-    public Appoinment() {
+    public Appointment() {
     }
 
-    public Appoinment(Long id, LocalDateTime date, Integer duration, String description) {
+    public Appointment(Long id, LocalDateTime date, Integer duration, String description) {
         this.id = id;
         this.date = date;
         this.duration = duration;
@@ -74,5 +86,13 @@ public class Appoinment implements Serializable {
 
     public void setDescription(String description) {
         this.description = description;
+    }
+
+    public HairAssistance getHairAssistance() {
+        return hairAssistance;
+    }
+
+    public void setHairAssistance(HairAssistance hairAssistance) {
+        this.hairAssistance = hairAssistance;
     }
 }

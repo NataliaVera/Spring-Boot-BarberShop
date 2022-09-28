@@ -1,6 +1,6 @@
-package repositories;
+package com.example.barbershop.repositories;
 
-import entities.Customer;
+import com.example.barbershop.entities.Customer;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 

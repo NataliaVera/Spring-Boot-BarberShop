@@ -1,4 +1,4 @@
-package entities;
+package com.example.barbershop.entities;
 
 import javax.persistence.*;
 import java.io.Serializable;
@@ -27,7 +27,7 @@ public class Customer implements Serializable {
     //Asociaciones
     //En el lado many se genera una nueva columna
     @OneToMany(mappedBy = "customer")
-    private List<Appoinment> appointmentList = new ArrayList<>();
+    private List<Appointment> appointmentList = new ArrayList<>();
 
 
     public Customer() {
@@ -81,11 +81,11 @@ public class Customer implements Serializable {
         this.birthDate = birthDate;
     }
 
-    public List<Appoinment> getAppointmentList() {
+    public List<Appointment> getAppointmentList() {
         return appointmentList;
     }
 
-    public void setAppointmentList(List<Appoinment> appointmentList) {
+    public void setAppointmentList(List<Appointment> appointmentList) {
         this.appointmentList = appointmentList;
     }
 }
