@@ -4,6 +4,7 @@ import com.example.barbershop.entities.Appointment;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.util.List;
 import java.util.Optional;
 
@@ -16,5 +17,8 @@ public interface AppointmentService {
     Double calculateAppointmentsBenefitsByDate(LocalDate day);
     Appointment save(Appointment appointment);
     boolean deleteById(Long id);
+    List<Appointment> saveAll(List<Appointment> appointmentList);
     boolean deleteAll();
+    boolean existsById(Long id);
+    List<Appointment> findAllByDateBetween(LocalDateTime min, LocalDateTime max);
 }

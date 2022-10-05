@@ -1,14 +1,20 @@
 package com.example.barbershop.services.impl;
 
+import com.example.barbershop.dto.BenefitsResponseDTO;
 import com.example.barbershop.entities.Appointment;
 import com.example.barbershop.repositories.AppointmentRepository;
 import com.example.barbershop.services.AppointmentService;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
+import org.springframework.util.CollectionUtils;
 import org.springframework.util.StringUtils;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 import java.util.Optional;
 
@@ -84,8 +90,27 @@ public class AppointmentServiceImpl implements AppointmentService {
     }
 
     @Override
+    public List<Appointment> saveAll(List<Appointment> appointmentList) {
+        if(CollectionUtils.isEmpty(appointmentList))//no sea nula ni vacía
+            return appointmentRepository.saveAll(appointmentList);
+
+        return new ArrayList<>();
+    }
+
+    @Override
     public boolean deleteAll() {
         appointmentRepository.deleteAll();
         return true;
+    }
+
+    @Override
+    public boolean existsById(Long id) {
+        appointmentRepository.existsById(id);
+        return true;
+    }
+
+    @Override
+    public List<Appointment> findAllByDateBetween(LocalDateTime min, LocalDateTime max) {
+        return null;
     }
 }

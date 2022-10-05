@@ -22,11 +22,20 @@ public class Appointment implements Serializable {
 
     //Relaciones: OneToOne, OneToMany, ManyToOne, ManyToMany
         //Cliente
-    @JsonIgnore// ignora todos por completp
+    //@JsonIgnore// ignora todos por completp
     @ManyToOne
     @JoinColumn(foreignKey = @ForeignKey(name = "fk_appointment_customer"))
     private Customer customer;
-        //Servicio
+
+    public Employee getEmployee() {
+        return employee;
+    }
+
+    public void setEmployee(Employee employee) {
+        this.employee = employee;
+    }
+
+    //Servicio
     @JsonIgnoreProperties(value = {"customer_id"}) //ignora atributos especificos
     @ManyToOne
     @JoinColumn(name = "service_id", foreignKey = @ForeignKey(name= "fk_appointment_hair_assistence"))//Nombre de la nueva columna

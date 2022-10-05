@@ -12,6 +12,7 @@ import java.util.List;
 public interface AppointmentRepository extends JpaRepository<Appointment, Long> {
 
     List<Appointment> findAllByCustomerEmail(String customerEmail);
-
     List<Appointment> findAllByDateBetween(LocalDateTime min, LocalDateTime max);
+    List<Appointment> findAllByEmployeeDni(String dni);
+    List<Appointment> findAllByHairAssistancePriceLessThanEqual(Double price);
 }

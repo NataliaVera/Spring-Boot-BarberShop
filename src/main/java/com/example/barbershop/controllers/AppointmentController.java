@@ -1,10 +1,12 @@
 package com.example.barbershop.controllers;
 
+import com.example.barbershop.dto.BenefitsResponseDTO;
 import com.example.barbershop.entities.Appointment;
 import com.example.barbershop.services.AppointmentService;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.time.LocalDate;
 import java.util.List;
 import java.util.Optional;
 
@@ -65,4 +67,14 @@ public class AppointmentController {
         else
             return ResponseEntity.badRequest().build();
     }
+
+    @GetMapping("/appoinments/benefits/{year}/{month}/{day}")
+    public ResponseEntity<BenefitsResponseDTO> benefitsDate(@PathVariable int year, @PathVariable int month, @PathVariable int day){
+        double benefits = appointmentService.calculateAppointmentsBenefitsByDate(LocalDate.of(year, month, day));
+        BenefitsResponseDTO benefitsResponseDTO = new BenefitsResponseDTO(benefits);
+        return ResponseEntity.ok(benefitsResponseDTO);
+    }
+
+    //public ResponseEntity<BenefitsResponseDTO> benefitsMonth(){}
+    //public ResponseEntity<BenefitsResponseDTO> benefitsYear(){}
 }
