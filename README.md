@@ -1,5 +1,8 @@
 # Barber Shop - Spring Boot
 
+Capa servicio para odas las entidades con métodos CRUD
+Capa controlador para todas las entidades con métodos CRUD
+
 
 
 ## Frameworks control de versiones sobre las bases de datos 
