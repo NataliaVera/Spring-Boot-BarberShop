@@ -36,12 +36,17 @@ public class CustomerController {
 
     @PostMapping("/customers/create")
     public ResponseEntity<Customer> create(@RequestBody Customer customer){
-        if(customer.getId() == null)
+        if(customer.getId() != null)
             return ResponseEntity.badRequest().build();
 
         return ResponseEntity.ok(customerService.save(customer));
     }
 
+    /**
+     * Actualizar una cita existente
+     * @param customer
+     * @return
+     */
     @PutMapping("/customers/update")
     public ResponseEntity<Customer> update(@RequestBody Customer customer){
         if(customer.getId() == null)

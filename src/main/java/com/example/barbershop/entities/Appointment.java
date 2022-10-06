@@ -10,42 +10,16 @@ import java.time.LocalDateTime;
 @Entity
 @Table(name= "appointments")
 public class Appointment implements Serializable {
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
     private LocalDateTime date;
 
-    private Integer duration; // tiempo real
+    private Integer duration;
     @Column(length = 400)
     private String description;
-
-    //Relaciones: OneToOne, OneToMany, ManyToOne, ManyToMany
-        //Cliente
-    //@JsonIgnore// ignora todos por completp
-    @ManyToOne
-    @JoinColumn(foreignKey = @ForeignKey(name = "fk_appointment_customer"))
-    private Customer customer;
-
-    public Employee getEmployee() {
-        return employee;
-    }
-
-    public void setEmployee(Employee employee) {
-        this.employee = employee;
-    }
-
-    //Servicio
-    @JsonIgnoreProperties(value = {"customer_id"}) //ignora atributos especificos
-    @ManyToOne
-    @JoinColumn(name = "service_id", foreignKey = @ForeignKey(name= "fk_appointment_hair_assistence"))//Nombre de la nueva columna
-    private HairAssistance hairAssistance;
-
-    @ManyToOne
-    @JoinColumn(name = "employee_id", foreignKey = @ForeignKey(name = "fk_appointment_employee"))
-    private Employee employee;
-
-    //Contructores
 
     public Appointment() {
     }
@@ -57,7 +31,21 @@ public class Appointment implements Serializable {
         this.description = description;
     }
 
-    //Métodos
+    //Asociaciones: OneToOne, OneToMany, ManyToOne, ManyToMany
+    @JsonIgnoreProperties(value = {"appointments"})
+    @ManyToOne
+    @JoinColumn(name = "customer_id", foreignKey = @ForeignKey(name = "fk_appointment_customer"))
+    private Customer customer;
+
+    @ManyToOne
+    @JoinColumn(name = "hair_assistance_id", foreignKey = @ForeignKey(name = "fk_appointment_hairassistance"))
+    private HairAssistance hairAssistance;
+
+    @ManyToOne
+    @JoinColumn(name = "employee_id", foreignKey = @ForeignKey(name = "fk_appointment_employee"))
+    private Employee employee;
+
+
     public Long getId() {
         return id;
     }
@@ -82,13 +70,6 @@ public class Appointment implements Serializable {
         this.duration = duration;
     }
 
-    public Customer getCustomer() {
-        return customer;
-    }
-    public void setCustomer(Customer customer) {
-        this.customer = customer;
-    }
-
     public String getDescription() {
         return description;
     }
@@ -97,11 +78,40 @@ public class Appointment implements Serializable {
         this.description = description;
     }
 
+    public Customer getCustomer() {
+        return customer;
+    }
+
+    public void setCustomer(Customer customer) {
+        this.customer = customer;
+    }
+
     public HairAssistance getHairAssistance() {
         return hairAssistance;
     }
 
     public void setHairAssistance(HairAssistance hairAssistance) {
         this.hairAssistance = hairAssistance;
+    }
+
+    public Employee getEmployee() {
+        return employee;
+    }
+
+    public void setEmployee(Employee employee) {
+        this.employee = employee;
+    }
+
+    @Override
+    public String toString() {
+        return "Appointment{" +
+                "id=" + id +
+                ", date=" + date +
+                ", duration=" + duration +
+                ", description='" + description + '\'' +
+                ", customer=" + customer +
+                ", hairAssistance=" + hairAssistance +
+                ", employee=" + employee +
+                '}';
     }
 }

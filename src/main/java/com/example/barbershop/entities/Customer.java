@@ -1,5 +1,7 @@
 package com.example.barbershop.entities;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+
 import javax.persistence.*;
 import java.io.Serializable;
 import java.time.LocalDate;
@@ -16,22 +18,24 @@ public class Customer implements Serializable {
 
     @Column(nullable = false, length = 40, name = "first_name")
     private String firstName;
-    @Column(name = "last_name")
+
+    @Column(name="last_name")
     private String lastName;
-    @Column(unique = true, nullable = false)
+
+    @Column(nullable = false, unique = true)
     private String email;
 
-    @Column(name = "birth_date")
+    @Column(name="birth_date")
     private LocalDate birthDate;
 
-    //Asociaciones
-    //En el lado many se genera una nueva columna
+    // asociaciones
+    // por defecto las asociaciones many son lazy
+//     @JsonIgnore
+    @JsonIgnoreProperties(value = {"customer"})
     @OneToMany(mappedBy = "customer")
-    private List<Appointment> appointmentList = new ArrayList<>();
+    private List<Appointment> appointments = new ArrayList<>();
 
-
-    public Customer() {
-    }
+    public Customer(){}
 
     public Customer(Long id, String firstName, String lastName, String email, LocalDate birthDate) {
         this.id = id;
@@ -81,11 +85,22 @@ public class Customer implements Serializable {
         this.birthDate = birthDate;
     }
 
-    public List<Appointment> getAppointmentList() {
-        return appointmentList;
+    public List<Appointment> getAppointments() {
+        return appointments;
     }
 
-    public void setAppointmentList(List<Appointment> appointmentList) {
-        this.appointmentList = appointmentList;
+    public void setAppointments(List<Appointment> appointments) {
+        this.appointments = appointments;
+    }
+
+    @Override
+    public String toString() {
+        return "Customer{" +
+                "id=" + id +
+                ", firstName='" + firstName + '\'' +
+                ", lastName='" + lastName + '\'' +
+                ", email='" + email + '\'' +
+                ", birthDate=" + birthDate +
+                '}';
     }
 }

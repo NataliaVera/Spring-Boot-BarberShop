@@ -3,7 +3,6 @@ package com.example.barbershop.dto;
 public class BenefitsResponseDTO {
 
     private Double benefits;
-    private Integer year;
 
     public BenefitsResponseDTO(){}
 
@@ -19,11 +18,5 @@ public class BenefitsResponseDTO {
         this.benefits = benefits;
     }
 
-    public Integer getYear() {
-        return year;
-    }
 
-    public void setYear(Integer year) {
-        this.year = year;
-    }
 }

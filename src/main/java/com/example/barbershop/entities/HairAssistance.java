@@ -15,10 +15,9 @@ public class HairAssistance implements Serializable {
 
     private Double price;
 
-    private Integer duration; // tiempo estimado
+    private Integer duration; // tiempo estimado en minutos
 
-    public HairAssistance() {
-    }
+    public HairAssistance(){}
 
     public HairAssistance(Long id, String name, Double price, Integer duration) {
         this.id = id;
@@ -57,5 +56,15 @@ public class HairAssistance implements Serializable {
 
     public void setDuration(Integer duration) {
         this.duration = duration;
+    }
+
+    @Override
+    public String toString() {
+        return "HairAssistance{" +
+                "id=" + id +
+                ", name='" + name + '\'' +
+                ", price=" + price +
+                ", duration=" + duration +
+                '}';
     }
 }

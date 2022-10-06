@@ -2,6 +2,7 @@ package com.example.barbershop.entities;
 
 import javax.persistence.*;
 import java.io.Serializable;
+import java.time.LocalDate;
 
 @Entity
 @Table(name = "employee")
@@ -10,27 +11,33 @@ public class Employee implements Serializable {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
+
     @Column(nullable = false, length = 40, name = "first_name")
     private String firstName;
-    @Column(name = "last_name")
+
+    @Column(name="last_name")
     private String lastName;
+
     @Column(nullable = false, unique = true)
     private String email;
-    private String cellphone;
+
+    @Column(name="birth_date")
+    private LocalDate birthDate;
+
     @Column(nullable = false, unique = true)
     private String nss;
+
     @Column(nullable = false, unique = true)
     private String dni;
 
-    public Employee() {
-    }
+    public Employee(){}
 
-    public Employee(Long id, String firstName, String lastName, String email, String cellphone, String nss, String dni) {
+    public Employee(Long id, String firstName, String lastName, String email, LocalDate birthDate, String nss, String dni) {
         this.id = id;
         this.firstName = firstName;
         this.lastName = lastName;
         this.email = email;
-        this.cellphone = cellphone;
+        this.birthDate = birthDate;
         this.nss = nss;
         this.dni = dni;
     }
@@ -67,12 +74,12 @@ public class Employee implements Serializable {
         this.email = email;
     }
 
-    public String getCellphone() {
-        return cellphone;
+    public LocalDate getBirthDate() {
+        return birthDate;
     }
 
-    public void setCellphone(String cellphone) {
-        this.cellphone = cellphone;
+    public void setBirthDate(LocalDate birthDate) {
+        this.birthDate = birthDate;
     }
 
     public String getNss() {
@@ -89,5 +96,18 @@ public class Employee implements Serializable {
 
     public void setDni(String dni) {
         this.dni = dni;
+    }
+
+    @Override
+    public String toString() {
+        return "Employee{" +
+                "id=" + id +
+                ", firstName='" + firstName + '\'' +
+                ", lastName='" + lastName + '\'' +
+                ", email='" + email + '\'' +
+                ", birthDate=" + birthDate +
+                ", nss='" + nss + '\'' +
+                ", dni='" + dni + '\'' +
+                '}';
     }
 }
